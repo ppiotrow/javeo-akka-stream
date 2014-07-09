@@ -1,19 +1,19 @@
-import Bank.Transfer
-import akka.actor.{Props, ActorSystem, ActorRef, Actor}
+package ppiotrow
 
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import ppiotrow.Bank.Transfer
 import scala.io.Source
+import Bank.Transfer
 
+//Linked actors to process concurrently transactions
 //Problem
 //Mailboxes growing
 //OutOfMemoryError
-//no static typing
-//sbt -mem 128
+//No static typing
 object Ex3 extends App {
 
-  val sys = ActorSystem("javeo")
+  val sys = ActorSystem("javeo.eu")
   val lines: Iterator[String] = Source.fromFile("/home/przemko/log.txt", "utf-8").getLines()
-  println("Wczytano")
-
   lazy val map = sys.actorOf(Props(new MapActor(filter)))
   lazy val filter = sys.actorOf(Props(new FilterActor(100, writer)))
 //  lazy val hardOp = sys.actorOf(Props(new HardOperationActor(writer)))
@@ -26,7 +26,7 @@ class MapActor(next: ActorRef) extends Actor {
   def receive = {
     case s: String => next ! transform(s)
   }
-  def transform(s: String) = Bank.fromString(s)
+  def transform(s: String) = Transfer.fromString(s)
 }
 
 class FilterActor(threshold: Long, next: ActorRef) extends Actor {

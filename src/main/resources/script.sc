@@ -1,3 +1,5 @@
+import ppiotrow.Bank
+
 "sample data generator"
 object TestDataGenerator {
   def generate(gb: Long): Unit = {
