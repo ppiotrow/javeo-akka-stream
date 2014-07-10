@@ -3,8 +3,9 @@ package ppiotrow
 import akka.actor.ActorSystem
 import akka.stream.scaladsl.Flow
 import akka.stream.{MaterializerSettings, FlowMaterializer}
-
+import scala.concurrent.duration._
 import scala.io.Source
+
 //No explicit dependency between 1-second-tics and 5-second-ticks
 //but the streams are back pressured by transfers producer
 object Ex9 extends App{
@@ -17,8 +18,11 @@ object Ex9 extends App{
   val tickPerSecond = Flow(1.second, () => Tick)
   val tickPer5Seconds = Flow(5.seconds, () => Tick)
 
-  tickPerSecond.zip(input).foreach(println).onComplete(mat)(_=>Unit())
+  val consumedPerSecond = tickPerSecond.zip(input).foreach(t => println("1Second:"+t))
+  val consumedPer5Seconds = tickPer5Seconds.zip(input).foreach(t => println("5Seconds:"+t))
 
-  tickPer5Seconds.zip(input).foreach(println).onComplete(mat)(_=>sys.shutdown())
+ //If you just invoke consume and complete in bellow lines then some transfers may skip 5-seconds stream
+  consumedPerSecond.consume(mat)
+  consumedPer5Seconds.onComplete(mat)(_=>sys.shutdown())
 }
 
