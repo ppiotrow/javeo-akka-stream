@@ -12,13 +12,13 @@ import scala.io.Source
 // even with: sbt -mem 64
 object Ex4 extends App {
 
-  implicit val sys = ActorSystem("javeo.eu")
+  implicit val sys = ActorSystem("javeo")
   val mat = FlowMaterializer(MaterializerSettings())
-  val source= Source.fromFile("/home/przemko/log.txt", "utf-8")
+  val source= Source.fromFile(Bank.fileLocation, "utf-8")
   Flow(source.getLines())
     .map(Transfer.fromString)
-    .filter(_.amount<100)
-    .take(1000)
+    .filter(_.amount<100) //~0.001 of all transactions
+    .take(10000)
     .foreach(println)
     .consume(mat)
 //    .onComplete(mat)(_=>sys.shutdown())

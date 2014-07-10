@@ -9,9 +9,9 @@ import scala.io.Source
 
 object Ex5 extends App {
 
-  implicit val sys = ActorSystem("javeo.eu")
+  implicit val sys = ActorSystem("javeo")
   val mat = FlowMaterializer(MaterializerSettings())
-  val source = Source.fromFile("/home/przemko/log.txt", "utf-8")
+  val source = Source.fromFile(Bank.fileLocation, "utf-8")
 
   val input = Flow(source.getLines()).take(10).toProducer(mat)
   val ticks = Flow(1.second, () => Tick)

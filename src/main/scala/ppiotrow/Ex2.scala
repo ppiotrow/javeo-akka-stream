@@ -5,9 +5,9 @@ import Bank.Transfer
 
 //Problem
 //Iteration.
-//Low memory usage but also only one core used.
+//Low memory usage but also only one core used. //tip: show htop
 object Ex2 extends App {
-  val source = Source.fromFile("/home/przemko/log.txt", "utf-8")
+  val source = Source.fromFile(Bank.fileLocation, "utf-8")
   println("Loaded")
 
   val lines = source.getLines()

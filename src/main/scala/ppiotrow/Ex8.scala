@@ -17,7 +17,7 @@ object Ex8 extends App {
   implicit val sh = sys.scheduler
 
   val mat = FlowMaterializer(MaterializerSettings())
-  val source= Source.fromFile("/home/przemko/log.txt", "utf-8")
+  val source= Source.fromFile(Bank.fileLocation, "utf-8")
 
   val input = Flow(source.getLines()).map(Transfer.fromString).take(1000000)
 

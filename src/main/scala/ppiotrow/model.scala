@@ -7,7 +7,6 @@ object Bank {
   case class Account(name: String) extends AnyVal {
     override def toString = s"$name"
   }
-
   object Account {
     def random = Account((1 to 4).map(_ => ('A' + rnd.nextInt(26)).toChar).mkString)
   }
@@ -22,7 +21,6 @@ object Bank {
     def random = Currency(currencies(rnd.nextInt(currencies.length)))
   }
 
-
   case class Transfer(from: Account, to: Account, amount: Long, currency: Currency) {
     override def toString = s"$from $to $amount $currency"
   }
@@ -33,9 +31,10 @@ object Bank {
       Transfer(Account(tokens(0)), Account(tokens(1)), tokens(2).toInt, Currency(tokens(3)))
     }
 
-    def transfer = Transfer(Account.random, Account.random, rnd.nextLong(100000), Currency.random)
+    def random = Transfer(Account.random, Account.random, rnd.nextLong(100000), Currency.random)
   }
 
+  val fileLocation = "target/bigdata.txt"
 }
 
 case object Tick

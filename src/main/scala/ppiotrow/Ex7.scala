@@ -13,11 +13,11 @@ import scala.io.Source
 //conflate
 object Ex7 extends App {
 
-  implicit val sys = ActorSystem("javeo.eu")
+  implicit val sys = ActorSystem("javeo")
   implicit val ec = sys.dispatcher
   implicit val sh = sys.scheduler
   val mat = FlowMaterializer(MaterializerSettings())
-  val source = Source.fromFile("/home/przemko/log.txt", "utf-8")
+  val source = Source.fromFile(Bank.fileLocation, "utf-8")
 
   val input = Flow(source.getLines()).map(Transfer.fromString)
   val ticks = Flow(1.second, () => Tick)

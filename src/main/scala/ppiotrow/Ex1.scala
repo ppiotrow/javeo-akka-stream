@@ -6,7 +6,7 @@ import Bank.Transfer
 //Problem
 //Load all to memory and process
 object Ex1 extends App {
-  val source = Source.fromFile("/home/przemko/log.txt", "utf-8")
+  val source = Source.fromFile(Bank.fileLocation, "utf-8")
   println("Loaded")
 
   val lines = source.getLines().toList

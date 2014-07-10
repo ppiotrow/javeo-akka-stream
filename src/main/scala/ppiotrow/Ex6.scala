@@ -10,10 +10,10 @@ import scala.io.Source
 //why mapFuture? Backpreasure
 object Ex6 extends App {
 
-  implicit val sys = ActorSystem("javeo.eu")
+  implicit val sys = ActorSystem("javeo")
   implicit val ec = sys.dispatcher
   val mat = FlowMaterializer(MaterializerSettings())
-  val source= Source.fromFile("/home/przemko/log.txt", "utf-8")
+  val source= Source.fromFile(Bank.fileLocation, "utf-8")
 
   val input = Flow(source.getLines()).map(Transfer.fromString).take(30)
 
