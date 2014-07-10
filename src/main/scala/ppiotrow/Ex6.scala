@@ -7,7 +7,8 @@ import akka.stream.{FlowMaterializer, MaterializerSettings}
 import ppiotrow.Bank.{Transfer, Currency}
 import scala.io.Source
 
-//why mapFuture? Backpreasure
+//why mapFuture?
+//change to map to show lack of back pressure
 object Ex6 extends App {
 
   implicit val sys = ActorSystem("javeo")
@@ -15,7 +16,7 @@ object Ex6 extends App {
   val mat = FlowMaterializer(MaterializerSettings())
   val source= Source.fromFile(Bank.fileLocation, "utf-8")
 
-  val input = Flow(source.getLines()).map(Transfer.fromString).take(30)
+  val input = Flow(source.getLines()).map(Transfer.fromString)
 
   input.mapFuture { t =>
       WebService.convertToEUR(t.amount, t.currency)
