@@ -8,7 +8,7 @@ It is strongly related to http://www.parleys.com/play/53a7d2c3e4b0543940d9e53a
 
 
 ## Preparation
-Artifact consist of 8 exercises. Each uses a big input file you will generate with generate3GBFile.scala.
+Repo consist of 9 exercises. Each uses a big input file you will generate with generate3GBFile.scala.
 
 Then you may run sbt with low memory. Its because you may want to get faster the "out of memory error" in Ex[1-3] and to simulate scale between large amount of data and your program.
 There are different ways to achieve that depends on sbt version. You can try
@@ -37,5 +37,4 @@ example command switches off 5th core (you need to restart *htop* to see less co
  * Ex7 - every tick summarizes number of transactions between ticks
  * Ex8 - currency rates WS is asked only once per n seconds
  * Ex9 - two independent streams back-pressured by common producer
-
 
