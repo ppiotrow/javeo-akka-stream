@@ -1,5 +1,6 @@
 Akka streams
 ========
+####The workshop is little bit outdated, because it uses akka-stream-experimental v.0.4
 
 To help me present Akka streams to workmates from javeo.eu
 
